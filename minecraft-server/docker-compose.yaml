@@ -1,1 +1,62 @@
+version: "3.8"
+volumes:
+  data:
+  data2:
+  data3:
 
+services:
+  vanilla:
+    image: itzg/minecraft-server
+    tty: true
+    stdin_open: true
+    ports:
+      - "25565:25565"
+    environment:
+      EULA: "TRUE"
+      ICON: https://i.ibb.co/G5p7nLt/Flag-of-Israel.png
+      JVM_XX_OPTS: "-XX:MaxRAMPercentage=75"
+      MEMORY: 8G
+    volumes:
+      # attach the relative directory 'data' to the container's /data path
+      - data:/data
+    restart: "unless-stopped"
+    
+#  cobblemon:
+#    image: itzg/minecraft-server
+#    tty: true
+#    stdin_open: true
+#    ports:
+#      - "25566:25565"
+#    environment:
+#      EULA: "TRUE"
+#      ICON: https://www.pokemoncenter.com/images/DAMRoot/Full-Size/10000/P7362_710-08903_01.jpg
+
+#      TYPE: "MODRINTH"
+#      MODRINTH_MODPACK: https://modrinth.com/modpack/cobblemon-fabric
+#      MEMORY: 24G
+#    volumes:
+      # attach the relative directory 'data' to the container's /data path
+#      - data2:/data
+#    restart: "unless-stopped"
+
+  pixelmon:
+    image: itzg/minecraft-server:java8-multiarch
+    tty: true
+    stdin_open: true
+    ports:
+      - "25566:25565"
+    environment:
+      EULA: "TRUE"
+      ICON: https://www.pokemoncenter.com/images/DAMRoot/Full-Size/10000/P7362_710-08903_01.jpg
+#      CF_API_KEY: '$$2a$$10$$WFI5XUrXSOd3bB0971XOc.6ccBnR1hmfmS9qq0AElL7EWOFuLWTYm'
+      TYPE: "CURSEFORGE"
+      CF_SERVER_MOD: serverpack919.zip
+#      CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/the-pixelmon-modpack/files/4826541
+      MEMORY: 24G
+      VERSION: "1.16.5"
+      FORGE_VERSION: "36.2.35"
+
+    volumes:
+      # attach the relative directory 'data' to the container's /data path
+      - data3:/data
+    restart: "unless-stopped"
