@@ -27,7 +27,7 @@ services:
       - app:/var/www/html
       - /mnt/nextcloud-lv:/var/www/html/data
     ports:
-      - 32783:80
+      - 32774:80
 
     environment:
       - MYSQL_PASSWORD=yXaemFjoCWFC9$LYgn55NeBR2aLH*2
