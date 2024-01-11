@@ -29,7 +29,7 @@ services:
       - /mnt/torrent-lv/TV:/tv
       - /mnt/torrent-lv/Torrents:/data
     ports:
-      - 32779:8989
+      - 32771:8989
     restart: unless-stopped
 
   lidarr:
