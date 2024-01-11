@@ -46,8 +46,8 @@ services:
       - "traefik.http.routers.traefik-untrusted.middlewares=traefik-auth"
       - "traefik.http.routers.traefik-untrusted.tls=true"
       - "traefik.http.routers.traefik-untrusted.tls.certresolver=cloudflare"
-      - "traefik.http.routers.traefik-untrusted.tls.domains[0].main=local.zerodavid.net"
-      - "traefik.http.routers.traefik-untrusted.tls.domains[0].sans=*.local.zerodavid.net"
+      - "traefik.http.routers.traefik-untrusted.tls.domains[0].main=zerodavid.net"
+      - "traefik.http.routers.traefik-untrusted.tls.domains[0].sans=*.zerodavid.net"
     environment:
       - CF_DNS_API_TOKEN=7bMgT3-p6HyEIMQYkiSIMPlj0VUUvvGCj10QAXM1
 
