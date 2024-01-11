@@ -42,7 +42,6 @@ services:
       - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.local.zerodavid.net"
       - "traefik.http.routers.traefik-secure.service=api@internal"
     environment:
-      - CF_API_EMAIL=david_jm_fitzgerald@outlook.com
       - CF_DNS_API_TOKEN=WlUdJo75FEQfB0_ABI_eE3cuNHY2FPxKPXOL1hpX
 
   waf:
