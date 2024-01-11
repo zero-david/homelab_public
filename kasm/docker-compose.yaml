@@ -12,8 +12,8 @@ services:
       - data:/opt
       - profiles:/profiles
     ports:
-      - 3000:3000
-      - 32770:443
+      - 192.168.30.20:3000:3000
+      - 192.168.30.20:443:443
     restart: unless-stopped
     deploy:
       resources:
