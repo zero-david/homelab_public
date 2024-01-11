@@ -23,7 +23,8 @@ services:
               count: 1
               capabilities: [gpu]
     networks:
-      - macvlan_net
+      macvlan_net:
+        ipv4_address: 192.168.30.20
 
 networks:
   macvlan_net:
@@ -32,7 +33,8 @@ networks:
       parent: enp6s18 # Specify the parent interface (replace 'enp6s18' with your host's interface name)
     ipam:
       config:
-        - subnet: 192.168.30.0/24 # Adjust the subnet according to your network setup
+        - subnet: 192.168.30.0/24
+          gateway: 192.168.30.1
 
 volumes:
   data:
