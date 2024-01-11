@@ -22,8 +22,8 @@ services:
             options:
                 max-size: 10m
         ports:
-            - 32769:9091
-            - 32771:9117  # This is Jackett Port – managed by VPN Service Network
+            - 32775:9091
+            - 32776:9117  # This is Jackett Port – managed by VPN Service Network
         image: haugene/transmission-openvpn
     jackett:
         image: lscr.io/linuxserver/jackett:latest
