@@ -15,7 +15,7 @@ services:
       - /mnt/torrent-lv/Movies:/movies
       - /mnt/torrent-lv/Torrents:/data
     ports:
-      - 32777:7878
+      - 32771:7878
     restart: unless-stopped
     
   sonarr:
@@ -29,7 +29,7 @@ services:
       - /mnt/torrent-lv/TV:/tv
       - /mnt/torrent-lv/Torrents:/data
     ports:
-      - 32771:8989
+      - 32772:8989
     restart: unless-stopped
 
   lidarr:
@@ -43,7 +43,7 @@ services:
       - /mnt/torrent-lv/music:/music
       - /mnt/torrent-lv/Torrents:/data
     ports:
-      - 32778:8686
+      - 32773:8686
     restart: unless-stopped
 
     
