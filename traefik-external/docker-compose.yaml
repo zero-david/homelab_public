@@ -5,15 +5,13 @@ services:
     image: traefik
     ports:
       - 80:80
-      - "443:443"
+      - 443:443
       - 8080:8080
-    command:
-      - --api.dashboard=true
-      - --api.insecure=true
-      - --experimental.plugins.traefik-modsecurity-plugin.modulename=github.com/acouvreur/traefik-modsecurity-plugin
-      - --experimental.plugins.traefik-modsecurity-plugin.version=v1.3.0
-      - --providers.docker=true
-      - --entrypoints.websecure.address=:443
+    experimental:
+      plugins:
+        traefik-modsecurity-plugin:
+          moduleName: "github.com/acouvreur/traefik-modsecurity-plugin"
+         version: "v1.3.0"
     networks:
       - proxy
     volumes:
