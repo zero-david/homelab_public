@@ -28,3 +28,10 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+    networks:
+      kasm_net:
+networks:
+  kasm_net:
+    driver: macvlan
+    driver_opts:
+      parent: enp6s18
