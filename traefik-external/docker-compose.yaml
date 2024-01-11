@@ -4,9 +4,8 @@ services:
   traefik:
     image: traefik
     ports:
-      - 80:80
-      - 443:443
-      - 8080:8080
+      - "8000:80"
+      - "8080:8080"
     command:
       - --api.dashboard=true
       - --api.insecure=true
@@ -14,32 +13,13 @@ services:
       - --experimental.plugins.traefik-modsecurity-plugin.version=v1.3.0
       - --providers.docker=true
       - --entrypoints.http.address=:80
-    networks:
-      - proxy
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
-      - /etc/localtime:/etc/localtime:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /etc/traefik/data/traefik.yml:/traefik.yml:ro
-      - /etc/traefik/data/acme.json:/acme.json
-      - /etc/traefik/data/config.yml:/config.yml:ro
     labels:
       - traefik.enable=true
       - traefik.http.services.traefik.loadbalancer.server.port=8080
       - traefik.http.middlewares.waf.plugin.traefik-modsecurity-plugin.modSecurityUrl=http://waf:80
       - traefik.http.middlewares.waf.plugin.traefik-modsecurity-plugin.maxBodySize=10485760
-      - "traefik.http.routers.traefik.entrypoints=http"
-      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
-      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
-      - "traefik.http.routers.traefik-untrusted.entrypoints=https"
-      - "traefik.http.routers.traefik-untrusted.tls=true"
-      - "traefik.http.routers.traefik-untrusted.tls.certresolver=cloudflare"
-      - "traefik.http.routers.traefik-untrusted.tls.domains[0].main=zerodavid.net"
-      - "traefik.http.routers.traefik-untrusted.tls.domains[0].sans=*.zerodavid.net"
-      - "traefik.http.routers.traefik-untrusted.service=api@internal"
-    environment:
-      - CF_DNS_API_TOKEN=7bMgT3-p6HyEIMQYkiSIMPlj0VUUvvGCj10QAXM1
 
   waf:
     image: owasp/modsecurity-crs:apache
@@ -58,6 +38,3 @@ services:
       - traefik.enable=true
       - traefik.http.routers.website.rule=PathPrefix(`/website`)
       - traefik.http.routers.website.middlewares=waf@docker
-networks:
-  proxy:
-    external: true
