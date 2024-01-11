@@ -4,6 +4,7 @@ services:
   kasm:
     image: lscr.io/linuxserver/kasm:latest
     container_name: kasm
+    privileged: true
     environment:
       - KASM_PORT=443
       - DOCKER_MTU=1500
@@ -29,6 +30,9 @@ networks:
     driver: macvlan
     driver_opts:
       parent: enp6s18 # Specify the parent interface (replace 'enp6s18' with your host's interface name)
+    ipam:
+      config:
+        - subnet: 192.168.30.0/24 # Adjust the subnet according to your network setup
 
 volumes:
   data:
