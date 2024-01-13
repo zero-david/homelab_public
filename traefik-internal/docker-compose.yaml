@@ -18,7 +18,6 @@ services:
       - /etc/traefik/data/config.yml:/config.yml:ro
     labels:
       - traefik.enable=true
-      - "traefik.http.routers.traefik.entrypoints=http"
       # TLS
       - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
@@ -30,6 +29,7 @@ services:
       - "traefik.http.routers.traefik-trusted.tls.domains[0].sans=*.local.zerodavid.net"
       - "traefik.http.routers.traefik-trusted.service=api@internal"
       # Dashboard
+      - "traefik.http.routers.traefik.entrypoints=http"
       - "traefik.http.routers.traefik.rule=Host(`traefik-dashboard.local.zerodavid.net`)"
       - "traefik.http.middlewares.traefik-auth.basicauth.users=david:$$apr1$$ET6VRY1o$$35O8mz9wDGwPQNfH0UdMv0"
       - "traefik.http.routers.traefik-trusted.rule=Host(`traefik-dashboard.local.zerodavid.net`)"
