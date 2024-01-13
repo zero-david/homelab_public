@@ -27,7 +27,7 @@ services:
     labels:
       - traefik.enable=true
       - "traefik.http.routers.kasm.rule=Host(`kasm.zerodavid.net`)"
-      - "traefik.http.routers.kasm.middlewares=waf@docker"
+#      - "traefik.http.routers.kasm.middlewares=waf@docker"
 volumes:
   data:
   profiles:
