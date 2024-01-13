@@ -11,6 +11,8 @@ services:
     volumes:
       - data:/opt
       - profiles:/profiles
+    networks:
+      - proxy
     ports:
 # setup      - 3000:3000
       - 32770:443
@@ -23,8 +25,13 @@ services:
               count: 1
               capabilities: [gpu]
     labels:
-      - "traefik.http.routers.myapp.middlewares=waf@docker"
+      - traefik.enable=true
+      - "traefik.http.routers.kasm.middlewares=waf@docker"
+      - "traefik.http.routers.traefik.rule=Host(`kasm.zerodavid.net`)"
 volumes:
   data:
   profiles:
   
+networks:
+  proxy:
+    external: true
