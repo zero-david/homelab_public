@@ -41,7 +41,7 @@ services:
       - "traefik.http.routers.traefik-untrusted.tls.domains[0].sans=*.zerodavid.net"
       - "traefik.http.routers.traefik-untrusted.service=api@internal"
       # Dashboard
-      - "traefik.http.routers.traefik.rule=Host(`traefik-dashboard.zerodavid.net`)"
+      - "traefik.http.routers.traefik-untrusted.rule=Host(`traefik-dashboard.zerodavid.net`)"
       - "traefik.http.middlewares.traefik-auth.basicauth.users=david:$$apr1$$ET6VRY1o$$35O8mz9wDGwPQNfH0UdMv0"
       - "traefik.http.routers.traefik-untrusted.rule=Host(`traefik-dashboard.zerodavid.net`)"
       - "traefik.http.routers.traefik-untrusted.middlewares=traefik-auth"
