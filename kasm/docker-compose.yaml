@@ -12,7 +12,7 @@ services:
       - data:/opt
       - profiles:/profiles
     ports:
-#      - 3000:3000
+# setup      - 3000:3000
       - 32770:443
     restart: unless-stopped
     deploy:
@@ -22,6 +22,9 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+    labels:
+      - "traefik.http.routers.myapp.middlewares=waf@docker"
 volumes:
   data:
   profiles:
+  
