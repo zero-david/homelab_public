@@ -26,8 +26,7 @@ services:
               capabilities: [gpu]
     labels:
       - traefik.enable=true
-      - "traefik.http.routers.traefik-untrusted.middlewares=waf@docker"
-      - "traefik.http.routers.traefik.rule=Host(`kasm.zerodavid.net`)"
+      - "traefik.http.routers.traefik-untrusted.rule=Host(`kasm.zerodavid.net`)"
 volumes:
   data:
   profiles:
