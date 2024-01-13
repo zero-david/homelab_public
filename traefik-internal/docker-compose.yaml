@@ -33,8 +33,6 @@ services:
       - "traefik.http.routers.traefik-secure.service=api@internal"
     environment:
       - CF_DNS_API_TOKEN=7bMgT3-p6HyEIMQYkiSIMPlj0VUUvvGCj10QAXM1
-  dummy:
-    image: containous/whoami
 networks:
   proxy:
     external: true
