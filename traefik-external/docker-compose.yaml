@@ -55,9 +55,13 @@ services:
       - ANOMALY_INBOUND=10
       - ANOMALY_OUTBOUND=5
       - BACKEND=http://dummy
+    networks:
+      - proxy
 
   dummy:
     image: containous/whoami
+    networks:
+      - proxy
 
 networks:
   proxy:
