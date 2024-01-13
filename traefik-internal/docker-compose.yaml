@@ -5,8 +5,7 @@ services:
     image: traefik
     ports:
       - 80:80
-      - "443:443"
-      - "8080:8080"
+      - 443:443
     networks:
       - proxy
     volumes:
@@ -17,23 +16,21 @@ services:
       - /etc/traefik/data/acme.json:/acme.json
       - /etc/traefik/data/config.yml:/config.yml:ro
     labels:
-      - traefik.enable=true
-      # TLS
-      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
-      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
-      - "traefik.http.routers.traefik-trusted.entrypoints=https"
-      - "traefik.http.routers.traefik-trusted.tls=true"
-      - "traefik.http.routers.traefik-trusted.tls.certresolver=cloudflare"
-      - "traefik.http.routers.traefik-trusted.tls.domains[0].main=local.zerodavid.net"
-      - "traefik.http.routers.traefik-trusted.tls.domains[0].sans=*.local.zerodavid.net"
-      - "traefik.http.routers.traefik-trusted.service=api@internal"
-      # Dashboard
+      - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=http"
       - "traefik.http.routers.traefik.rule=Host(`traefik-dashboard.local.zerodavid.net`)"
       - "traefik.http.middlewares.traefik-auth.basicauth.users=david:$$apr1$$ET6VRY1o$$35O8mz9wDGwPQNfH0UdMv0"
-      - "traefik.http.routers.traefik-trusted.rule=Host(`traefik-dashboard.local.zerodavid.net`)"
-      - "traefik.http.routers.traefik-trusted.middlewares=traefik-auth"
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik-dashboard.local.zerodavid.net`)"
+      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=local.example.com"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.local.example.com"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
     environment:
       - CF_DNS_API_TOKEN=7bMgT3-p6HyEIMQYkiSIMPlj0VUUvvGCj10QAXM1
   dummy:
