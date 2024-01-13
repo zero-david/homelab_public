@@ -30,7 +30,7 @@ services:
       - "traefik.http.routers.traefik-trusted.tls.domains[0].sans=*.local.zerodavid.net"
       - "traefik.http.routers.traefik-trusted.service=api@internal"
       # Dashboard
-      - "traefik.http.routers.traefik-trusted.rule=Host(`traefik-dashboard.local.zerodavid.net`)"
+      - "traefik.http.routers.traefik.rule=Host(`traefik-dashboard.local.zerodavid.net`)"
       - "traefik.http.middlewares.traefik-auth.basicauth.users=david:$$apr1$$ET6VRY1o$$35O8mz9wDGwPQNfH0UdMv0"
       - "traefik.http.routers.traefik-trusted.rule=Host(`traefik-dashboard.local.zerodavid.net`)"
       - "traefik.http.routers.traefik-trusted.middlewares=traefik-auth"
