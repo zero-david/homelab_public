@@ -25,6 +25,7 @@ services:
               count: 1
               capabilities: [gpu]
     labels:
+      - "traefik.enable=true"
       - "traefik.http.routers.kasm.entrypoints=https"
       - "traefik.http.routers.kasm.rule=Host(`kasm.zerodavid.net`)"
       - "traefik.http.routers.kasm.middlewares=default-headers,https-redirectscheme,waf@docker"
