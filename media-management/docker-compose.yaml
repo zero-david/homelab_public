@@ -14,9 +14,19 @@ services:
       - radarr-config:/config
       - /mnt/torrent-lv/Movies:/movies
       - /mnt/torrent-lv/Torrents:/data
-    ports:
-      - 32771:7878
+#    ports:
+#      - 7878:7878
+    networks:
+      - proxy
     restart: unless-stopped
+    labels:
+      # Enable Traefik for this router
+      - "traefik.enable=true"
+      # Traefik
+      - "traefik.http.routers.radarr.entrypoints=http,https"
+      - "traefik.http.routers.radarr.rule=Host(`radarr.zerodavid.net`)"
+      - "traefik.http.routers.radarr.middlewares=secured@file,private-whitelist@file"
+      - "traefik.http.routers.radarr.tls=true"
     
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -28,10 +38,20 @@ services:
       - sonarr-config:/config
       - /mnt/torrent-lv/TV:/tv
       - /mnt/torrent-lv/Torrents:/data
-    ports:
-      - 32772:8989
+#    ports:
+#      - 8989:8989
+    networks:
+      - proxy
     restart: unless-stopped
-
+    labels:
+      # Enable Traefik for this router
+      - "traefik.enable=true"
+      # Traefik
+      - "traefik.http.routers.sonarr.entrypoints=http,https"
+      - "traefik.http.routers.sonarr.rule=Host(`sonarr.local.zerodavid.net`)"
+      - "traefik.http.routers.sonarr.middlewares=secured@file,private-whitelist@file"
+      - "traefik.http.routers.sonarr.tls=true"
+      
   lidarr:
     image: lscr.io/linuxserver/lidarr
     environment:
@@ -42,8 +62,20 @@ services:
       - lidarr-config:/config
       - /mnt/torrent-lv/music:/music
       - /mnt/torrent-lv/Torrents:/data
-    ports:
-      - 32773:8686
+#    ports:
+#      - 8686:8686
+    networks:
+      - proxy
     restart: unless-stopped
-
+    labels:
+      # Enable Traefik for this router
+      - "traefik.enable=true"
+      # Traefik
+      - "traefik.http.routers.lidarr.entrypoints=http,https"
+      - "traefik.http.routers.lidarr.rule=Host(`lidarr.local.zerodavid.net`)"
+      - "traefik.http.routers.lidarr.middlewares=secured@file,private-whitelist@file"
+      - "traefik.http.routers.lidarr.tls=true"
     
+networks:
+  proxy:
+    external: true
