@@ -14,6 +14,8 @@ services:
       - MYSQL_PASSWORD=yXaemFjoCWFC9$LYgn55NeBR2aLH*2
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
+    networks:
+      - db
     labels:
       - "com.centurylinklabs.watchtower.monitor-only=true"
 
@@ -32,6 +34,7 @@ services:
       - MYSQL_HOST=db
     networks:
       - proxy
+      - db
     labels:
       # Enable Traefik for this router
       - "traefik.enable=true"
