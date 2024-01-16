@@ -33,8 +33,8 @@ services:
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=db
     networks:
-      - proxy
       - db
+      - proxy
     labels:
       # Enable Traefik for this router
       - "traefik.enable=true"
@@ -43,6 +43,7 @@ services:
       - "traefik.http.routers.nextcloud.rule=Host(`nextcloud.zerodavid.net`)"
       - "traefik.http.routers.nextcloud.middlewares=secured@file"
       - "traefik.http.routers.nextcloud.tls=true"
+      - "traefik.http.routers.nextcloud.network=proxy"
 networks:
   proxy:
     external: true
