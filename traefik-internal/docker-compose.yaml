@@ -25,18 +25,18 @@ services:
       - "traefik.enable=true"
       # Router Configuration for Traefik Dashboard
       - "traefik.http.routers.traefik.entrypoints=http"
-      - "traefik.http.routers.traefik.rule=Host(`traefik-dashboard.zerodavid.net`)"
+      - "traefik.http.routers.traefik.rule=Host(`traefik-dashboard.local.zerodavid.net`)"
       - "traefik.http.routers.traefik.middlewares=secured@file"
       # Middleware Configuration for SSL Header
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"   
       # Secure Router Configuration for Traefik Dashboard
       - "traefik.http.routers.traefik-secure.entrypoints=https"
-      - "traefik.http.routers.traefik-secure.rule=Host(`traefik-dashboard.zerodavid.net`)"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik-dashboard.local.zerodavid.net`)"
       - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
       - "traefik.http.routers.traefik-secure.tls=true"
       - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].main=zerodavid.net"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.zerodavid.net"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=local.zerodavid.net"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.local.zerodavid.net"
       - "traefik.http.routers.traefik-secure.service=api@internal"   
       # Basic Authentication Middleware Configuration
       - "traefik.http.middlewares.traefik-auth.basicauth.users=david:$$apr1$$ET6VRY1o$$35O8mz9wDGwPQNfH0UdMv0"
