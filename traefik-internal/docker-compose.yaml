@@ -26,9 +26,7 @@ services:
       # Router Configuration for Traefik Dashboard
       - "traefik.http.routers.traefik.entrypoints=http"
       - "traefik.http.routers.traefik.rule=Host(`traefik-dashboard.local.zerodavid.net`)"
-      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
-      # Middleware Configuration for Traefik Dashboard
-      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https" 
+      - "traefik.http.routers.traefik.middlewares=secured"
       # Middleware Configuration for SSL Header
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"   
       # Secure Router Configuration for Traefik Dashboard
