@@ -13,7 +13,7 @@ services:
       - profiles:/profiles
     networks:
       - proxy
-#    ports:
+    ports:
 #      - 3000:3000
       - 32770:443
     restart: unless-stopped
