@@ -34,9 +34,9 @@ services:
       - "traefik.http.routers.traefik-secure.rule=Host(`traefik-dashboard.zerodavid.net`)"
       - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
       - "traefik.http.routers.traefik-secure.tls=true"
-#      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
-#      - "traefik.http.routers.traefik-secure.tls.domains[0].main=zerodavid.net"
-#      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.zerodavid.net"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=zerodavid.net"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.zerodavid.net"
       - "traefik.http.routers.traefik-secure.service=api@internal"   
       # Basic Authentication Middleware Configuration
       - "traefik.http.middlewares.traefik-auth.basicauth.users=david:$$apr1$$ET6VRY1o$$35O8mz9wDGwPQNfH0UdMv0"
