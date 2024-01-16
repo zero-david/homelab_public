@@ -15,7 +15,7 @@ services:
       - proxy
     ports:
 #      - 3000:3000
-      - 32770:443
+#      - 443:443
     restart: unless-stopped
     deploy:
       resources:
