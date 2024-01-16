@@ -38,8 +38,8 @@ services:
       - sonarr-config:/config
       - /mnt/torrent-lv/TV:/tv
       - /mnt/torrent-lv/Torrents:/data
-    ports:
-      - 8989:8989
+#    ports:
+#      - 8989:8989
     networks:
       - proxy
     restart: unless-stopped
@@ -48,7 +48,7 @@ services:
       - "traefik.enable=true"
       # Traefik
       - "traefik.http.routers.sonarr.entrypoints=http,https"
-      - "traefik.http.routers.sonarr.rule=Host(`sonarr.local.zerodavid.net`)"
+      - "traefik.http.routers.sonarr.rule=Host(`sonarr.zerodavid.net`)"
       - "traefik.http.routers.sonarr.middlewares=secured@file,private-whitelist@file"
       - "traefik.http.routers.sonarr.tls=true"
       
@@ -62,8 +62,8 @@ services:
       - lidarr-config:/config
       - /mnt/torrent-lv/music:/music
       - /mnt/torrent-lv/Torrents:/data
-    ports:
-      - 8686:8686
+#    ports:
+#      - 8686:8686
     networks:
       - proxy
     restart: unless-stopped
@@ -72,7 +72,7 @@ services:
       - "traefik.enable=true"
       # Traefik
       - "traefik.http.routers.lidarr.entrypoints=http,https"
-      - "traefik.http.routers.lidarr.rule=Host(`lidarr.local.zerodavid.net`)"
+      - "traefik.http.routers.lidarr.rule=Host(`lidarr.zerodavid.net`)"
       - "traefik.http.routers.lidarr.middlewares=secured@file,private-whitelist@file"
       - "traefik.http.routers.lidarr.tls=true"
     
