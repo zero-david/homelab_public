@@ -26,20 +26,20 @@ services:
       - 9091:9091
       - 9117:9117  # This is Jackett Port – managed by VPN Service Network
     image: haugene/transmission-openvpn
-    labels:
+#    labels:
       # Enable Traefik for this router
-      - "traefik.enable=true"
+#      - "traefik.enable=true"
       # Traefik
-      - "traefik.http.routers.transmission.entrypoints=http,https"
-      - "traefik.http.routers.transmission.rule=Host(`transmission.zerodavid.net`)"
-      - "traefik.http.routers.transmission.middlewares=secured@file,private-whitelist@file"
-      - "traefik.http.routers.transmission.tls=true"
-      - "traefik.http.services.transmission.loadbalancer.server.port=9091"
-      - "traefik.http.routers.jackett.entrypoints=http,https"
-      - "traefik.http.routers.jackett.rule=Host(`jackett.zerodavid.net`)"
-      - "traefik.http.routers.jackett.middlewares=secured@file,private-whitelist@file"
-      - "traefik.http.routers.jackett.tls=true"
-      - "traefik.http.services.jackett.loadbalancer.server.port=9117"
+#      - "traefik.http.routers.transmission.entrypoints=http,https"
+#      - "traefik.http.routers.transmission.rule=Host(`transmission.zerodavid.net`)"
+#      - "traefik.http.routers.transmission.middlewares=secured@file,private-whitelist@file"
+#      - "traefik.http.routers.transmission.tls=true"
+#      - "traefik.http.services.transmission.loadbalancer.server.port=9091"
+#      - "traefik.http.routers.jackett.entrypoints=http,https"
+#      - "traefik.http.routers.jackett.rule=Host(`jackett.zerodavid.net`)"
+#      - "traefik.http.routers.jackett.middlewares=secured@file,private-whitelist@file"
+#      - "traefik.http.routers.jackett.tls=true"
+#      - "traefik.http.services.jackett.loadbalancer.server.port=9117"
   jackett:
     image: lscr.io/linuxserver/jackett:latest
     container_name: jackett
