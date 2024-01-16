@@ -38,8 +38,8 @@ services:
       - sonarr-config:/config
       - /mnt/torrent-lv/TV:/tv
       - /mnt/torrent-lv/Torrents:/data
-#    ports:
-#      - 8989:8989
+    ports:
+      - 8989:8989
     networks:
       - proxy
     restart: unless-stopped
@@ -62,8 +62,8 @@ services:
       - lidarr-config:/config
       - /mnt/torrent-lv/music:/music
       - /mnt/torrent-lv/Torrents:/data
-#    ports:
-#      - 8686:8686
+    ports:
+      - 8686:8686
     networks:
       - proxy
     restart: unless-stopped
