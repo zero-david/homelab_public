@@ -13,6 +13,9 @@ services:
       - profiles:/profiles
     networks:
       - proxy
+#    ports:
+#      - 3000:3000
+#      - 443:443
     restart: unless-stopped
     deploy:
       resources:
