@@ -27,14 +27,14 @@ services:
     labels:
       # Enable Traefik for this router
       - "traefik.enable=true"
-      # Secure Router Configuration for Traefik Dashboard
+      # Traefik
       - "traefik.http.routers.kasm.entrypoints=https"
       - "traefik.http.routers.kasm.rule=Host(`kasm.zerodavid.net`)"
       - "traefik.http.routers.kasm.middlewares=secured@file"
       - "traefik.http.routers.kasm.tls=true"
-      - "traefik.http.routers.kasm.tls.certresolver=cloudflare"
-      - "traefik.http.routers.kasm.tls.domains[0].main=zerodavid.net"
-      - "traefik.http.routers.kasm.tls.domains[0].sans=*.zerodavid.net"
+#      - "traefik.http.routers.kasm.tls.certresolver=cloudflare"
+#      - "traefik.http.routers.kasm.tls.domains[0].main=zerodavid.net"
+#      - "traefik.http.routers.kasm.tls.domains[0].sans=*.zerodavid.net"
       - "traefik.http.services.kasm.loadbalancer.server.port=443"
 volumes:
   data:
