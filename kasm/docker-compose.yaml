@@ -25,11 +25,11 @@ services:
               count: 1
               capabilities: [gpu]
     labels:
-      - traefik.enable=true
+      - "traefik.http.routers.kasm.entrypoints=https"
       - "traefik.http.routers.kasm.rule=Host(`kasm.zerodavid.net`)"
-      - "traefik.http.routers.kasm.middlewares=waf@docker"
-      - "traefik.http.routers.kasm.middlewares=traefik-https-redirect"
-      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.kasm.middlewares=default-headers,https-redirectscheme,waf@docker"
+      - "traefik.http.routers.kasm.tls={}"
+      - "traefik.http.routers.kasm.service=kasm"
 volumes:
   data:
   profiles:
