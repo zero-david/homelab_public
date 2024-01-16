@@ -22,9 +22,9 @@ services:
         max-size: 10m
     networks:
       - proxy
-#      ports:
-          - 9091:9091
-          - 9117:9117  # This is Jackett Port – managed by VPN Service Network
+    ports:
+      - 9091:9091
+      - 9117:9117  # This is Jackett Port – managed by VPN Service Network
     image: haugene/transmission-openvpn
     labels:
       # Enable Traefik for this router
