@@ -12,12 +12,6 @@ services:
     ports:
       - 80:80
       - 443:443
-    command:
-      - --api.dashboard=true
-      - --api.insecure=true
-      - --experimental.plugins.traefik-modsecurity-plugin.modulename=github.com/acouvreur/traefik-modsecurity-plugin
-      - --experimental.plugins.traefik-modsecurity-plugin.version=v1.3.0
-      - --providers.docker.network=proxy
     environment:
       - CF_DNS_API_TOKEN=7bMgT3-p6HyEIMQYkiSIMPlj0VUUvvGCj10QAXM1
     volumes:
