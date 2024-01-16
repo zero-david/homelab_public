@@ -36,6 +36,7 @@ services:
 #      - "traefik.http.routers.kasm.tls.domains[0].main=zerodavid.net"
 #      - "traefik.http.routers.kasm.tls.domains[0].sans=*.zerodavid.net"
       - "traefik.http.services.kasm.loadbalancer.server.port=443"
+      - "traefik.http.services.kasm.loadbalancer.server.scheme=https"
 volumes:
   data:
   profiles:
