@@ -28,7 +28,8 @@ services:
       # Enable Traefik for this router
       - "traefik.enable=true"
       # Traefik
-      - "traefik.http.routers.kasm.entrypoints=https"
+      - "traefik.http.routers.kasm.rule=Host(`kasm.zerodavid.net`)"
+      - "traefik.http.routers.kasm.entrypoints=http,https"
       - "traefik.http.routers.kasm.rule=Host(`kasm.zerodavid.net`)"
       - "traefik.http.routers.kasm.middlewares=secured@file"
       - "traefik.http.routers.kasm.tls=true"
