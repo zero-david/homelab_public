@@ -23,8 +23,8 @@ services:
     networks:
       - proxy
 #      ports:
-#          - 9091:9091
-#          - 9117:9117  # This is Jackett Port – managed by VPN Service Network
+          - 9091:9091
+          - 9117:9117  # This is Jackett Port – managed by VPN Service Network
     image: haugene/transmission-openvpn
     labels:
       # Enable Traefik for this router
