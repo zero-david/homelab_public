@@ -16,8 +16,8 @@ services:
     - PUID=1000
     - PGID=1000
     restart: "unless-stopped"
-    ports:
-      - 32770:8096
+#    ports:
+#      - 8096:8096
     deploy:
       resources:
         reservations:
@@ -25,14 +25,35 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+    labels:
+      # Enable Traefik for this router
+      - "traefik.enable=true"
+      # Traefik
+      - "traefik.http.routers.jellyfin.entrypoints=http,https"
+      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.zerodavid.net`)"
+      - "traefik.http.routers.jellyfin.middlewares=secured@file"
+      - "traefik.http.routers.jellyfin.tls=true"
+      - "traefik.docker.network=proxy"
+    networks:
+      - proxy
+      - zap2xml
+
 
   zap2xml:
     image: shuaiscott/zap2xml:latest
     restart: "unless-stopped"
     volumes:
-        - xmltvdata:/data
+      - xmltvdata:/data
     environment:
-        - USERNAME=david_jm_fitzgerald@outlook.com
-        - PASSWORD=rZie7MZdVf4HUn
-        - OPT_ARGS=-I -D
-        - XMLTV_FILENAME=channels.xml
+      - USERNAME=david_jm_fitzgerald@outlook.com
+      - PASSWORD=rZie7MZdVf4HUn
+      - OPT_ARGS=-I -D
+      - XMLTV_FILENAME=channels.xml
+    networks:
+      - zap2xml
+
+networks:
+  proxy:
+    external: true
+  zap2xml:
+
