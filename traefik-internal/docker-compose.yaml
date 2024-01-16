@@ -1,38 +1,47 @@
-version: "3.7"
+version: '3'
 
 services:
   traefik:
-    image: traefik
+    image: traefik:latest
+    container_name: traefik
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
     ports:
       - 80:80
       - 443:443
-    networks:
-      - proxy
+    environment:
+      - CF_DNS_API_TOKEN=7bMgT3-p6HyEIMQYkiSIMPlj0VUUvvGCj10QAXM1
     volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock'
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /etc/traefik/data/traefik.yml:/traefik.yml:ro
-      - /etc/traefik/data/acme.json:/acme.json
-      - /etc/traefik/data/config.yml:/config.yml:ro
+      - /home/username/traefik/data/traefik.yml:/traefik.yml:ro
+      - /home/username/traefik/data/acme.json:/acme.json
+      - /home/username/traefik/data/config.yml:/config.yml:ro
     labels:
+      # Enable Traefik for this router
       - "traefik.enable=true"
+      # Router Configuration for Traefik Dashboard
       - "traefik.http.routers.traefik.entrypoints=http"
       - "traefik.http.routers.traefik.rule=Host(`traefik-dashboard.local.zerodavid.net`)"
-      - "traefik.http.middlewares.traefik-auth.basicauth.users=david:$$apr1$$ET6VRY1o$$35O8mz9wDGwPQNfH0UdMv0"
-      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
       - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      # Middleware Configuration for Traefik Dashboard
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https" 
+      # Middleware Configuration for SSL Header
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"   
+      # Secure Router Configuration for Traefik Dashboard
       - "traefik.http.routers.traefik-secure.entrypoints=https"
       - "traefik.http.routers.traefik-secure.rule=Host(`traefik-dashboard.local.zerodavid.net`)"
       - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
       - "traefik.http.routers.traefik-secure.tls=true"
       - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].main=local.example.com"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.local.example.com"
-      - "traefik.http.routers.traefik-secure.service=api@internal"
-    environment:
-      - CF_DNS_API_TOKEN=7bMgT3-p6HyEIMQYkiSIMPlj0VUUvvGCj10QAXM1
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=local.zerodavid.net"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.local.zerodavid.net"
+      - "traefik.http.routers.traefik-secure.service=api@internal"   
+      # Basic Authentication Middleware Configuration
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=david:$$apr1$$ET6VRY1o$$35O8mz9wDGwPQNfH0UdMv0"
 networks:
   proxy:
     external: true
