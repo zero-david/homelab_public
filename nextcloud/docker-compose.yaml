@@ -14,7 +14,6 @@ services:
       - MYSQL_PASSWORD=yXaemFjoCWFC9$LYgn55NeBR2aLH*2
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-
     labels:
       - "com.centurylinklabs.watchtower.monitor-only=true"
 
@@ -26,11 +25,21 @@ services:
     volumes:
       - app:/var/www/html
       - /mnt/nextcloud-lv:/var/www/html/data
-    ports:
-      - 32774:80
-
     environment:
       - MYSQL_PASSWORD=yXaemFjoCWFC9$LYgn55NeBR2aLH*2
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=db
+    networks:
+      - proxy
+    labels:
+      # Enable Traefik for this router
+      - "traefik.enable=true"
+      # Traefik
+      - "traefik.http.routers.nextcloud.entrypoints=http,https"
+      - "traefik.http.routers.nextcloud.rule=Host(`nextcloud.zerodavid.net`)"
+      - "traefik.http.routers.nextcloud.middlewares=secured@file"
+      - "traefik.http.routers.nextcloud.tls=true"
+networks:
+  proxy:
+    external: true
