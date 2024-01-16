@@ -1,50 +1,59 @@
 volumes:
-  app:
-  db:
+  xmltvdata:
+  config:
+  cache:
 
 services:
-  db:
-    image: mariadb:latest
-    restart: always
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
     volumes:
-      - db:/var/lib/mysql
+      - config:/config
+      - cache:/cache
+      - /mnt/torrent-lv:/media
+      - xmltvdata:/xmltvdata
     environment:
-      - MYSQL_ROOT_PASSWORD=yXaemFjoCWFC9$LYgn55NeBR2aLH*2
-      - MYSQL_PASSWORD=yXaemFjoCWFC9$LYgn55NeBR2aLH*2
-      - MYSQL_DATABASE=nextcloud
-      - MYSQL_USER=nextcloud
-    networks:
-      - db
-    labels:
-      - "com.centurylinklabs.watchtower.monitor-only=true"
-
-  app:
-    image: nextcloud:latest
-    restart: always
-    links:
-      - db
-    volumes:
-      - app:/var/www/html
-      - /mnt/nextcloud-lv:/var/www/html/data
-    environment:
-      - MYSQL_PASSWORD=yXaemFjoCWFC9$LYgn55NeBR2aLH*2
-      - MYSQL_DATABASE=nextcloud
-      - MYSQL_USER=nextcloud
-      - MYSQL_HOST=db
-    networks:
-      - db
-      - proxy
+    - PUID=1000
+    - PGID=1000
+    restart: "unless-stopped"
+#    ports:
+#      - 8096:8096
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
     labels:
       # Enable Traefik for this router
       - "traefik.enable=true"
       # Traefik
-      - "traefik.http.routers.nextcloud.entrypoints=http,https"
-      - "traefik.http.routers.nextcloud.rule=Host(`nextcloud.zerodavid.net`)"
-      - "traefik.http.routers.nextcloud.middlewares=secured@file"
-      - "traefik.http.routers.nextcloud.tls=true"
+      - "traefik.http.routers.jellyfin.entrypoints=http,https"
+      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.zerodavid.net`)"
+      - "traefik.http.routers.jellyfin.middlewares=secured@file"
+      - "traefik.http.routers.jellyfin.tls=true"
       - "traefik.docker.network=proxy"
+    networks:
+      - proxy
+      - zap2xml
+
+
+  zap2xml:
+    image: shuaiscott/zap2xml:latest
+    restart: "unless-stopped"
+    volumes:
+      - xmltvdata:/data
+    environment:
+      - USERNAME=david_jm_fitzgerald@outlook.com
+      - PASSWORD=rZie7MZdVf4HUn
+      - OPT_ARGS=-I -D
+      - XMLTV_FILENAME=channels.xml
+    networks:
+      - zap2xml
+
 networks:
   proxy:
     external: true
-  db:
+  zap2xml:
+
