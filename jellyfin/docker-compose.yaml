@@ -1,0 +1,38 @@
+volumes:
+  xmltvdata:
+  config:
+  cache:
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    volumes:
+      - config:/config
+      - cache:/cache
+      - /mnt/torrent-lv:/media
+      - xmltvdata:/xmltvdata
+    environment:
+    - PUID=1000
+    - PGID=1000
+    restart: "unless-stopped"
+    ports:
+      - 32770:8096
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  zap2xml:
+    image: shuaiscott/zap2xml:latest
+    restart: "unless-stopped"
+    volumes:
+        - xmltvdata:/data
+    environment:
+        - USERNAME=david_jm_fitzgerald@outlook.com
+        - PASSWORD=rZie7MZdVf4HUn
+        - OPT_ARGS=-I -D
+        - XMLTV_FILENAME=channels.xml
