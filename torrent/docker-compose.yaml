@@ -65,10 +65,10 @@ services:
       # Enable Traefik for this router
       - "traefik.enable=true"
       # Traefik
-      - "traefik.http.routers.transmission.entrypoints=http,https"
-      - "traefik.http.routers.transmission.rule=Host(`jackett.zerodavid.net`)"
-      - "traefik.http.routers.transmission.middlewares=secured@file,private-whitelist@file"
-      - "traefik.http.routers.transmission.tls=true"
+      - "traefik.http.routers.jackett.entrypoints=http,https"
+      - "traefik.http.routers.jackett.rule=Host(`jackett.zerodavid.net`)"
+      - "traefik.http.routers.jackett.middlewares=secured@file,private-whitelist@file"
+      - "traefik.http.routers.jackett.tls=true"
 networks:
   proxy:
     external: true
