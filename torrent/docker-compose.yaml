@@ -16,15 +16,24 @@ services:
 #            - OPENVPN_USERNAME=
 #            - OPENVPN_PASSWORD=
             - LOCAL_NETWORK=192.168.0.0/16,172.16.0.0/12
-
         logging:
             driver: json-file
             options:
                 max-size: 10m
+        netowrks:
+          - proxy
         ports:
-            - 32775:9091
-            - 32776:9117  # This is Jackett Port – managed by VPN Service Network
+            - 9091:9091
+            - 9117:9117  # This is Jackett Port – managed by VPN Service Network
         image: haugene/transmission-openvpn
+    labels:
+      # Enable Traefik for this router
+      - "traefik.enable=true"
+      # Traefik
+      - "traefik.http.routers.transmission.entrypoints=http,https"
+      - "traefik.http.routers.transmission.rule=Host(`transmission.zerodavid.net`)"
+      - "traefik.http.routers.transmission.middlewares=secured@file,private-whitelist@file"
+      - "traefik.http.routers.transmission.tls=true"
     jackett:
         image: lscr.io/linuxserver/jackett:latest
         container_name: jackett
@@ -52,3 +61,6 @@ services:
             interval: 5m00s
             timeout: 10s
             retries: 2
+networks:
+  proxy:
+    external: true
