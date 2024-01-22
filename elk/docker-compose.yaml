@@ -84,6 +84,14 @@ services:
    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
    labels:
      co.elastic.logs/module: elasticsearch
+     # Enable Traefik for this router
+     - "traefik.enable=true"
+     # Traefik
+     - "traefik.http.routers.elastic.entrypoints=http,https"
+     - "traefik.http.routers.elastic.rule=Host(`elastic.local.zerodavid.net`)"
+     - "traefik.http.routers.elastic.middlewares=secured@file"
+     - "traefik.http.routers.elastic.tls=true"
+     - "traefik.docker.network=proxy"
    volumes:
      - certs:/usr/share/elasticsearch/config/certs
      - esdata01:/usr/share/elasticsearch/data
@@ -111,6 +119,9 @@ services:
      memlock:
        soft: -1
        hard: -1
+   networks:
+     - proxy
+     - default
    healthcheck:
      test:
        [
