@@ -12,6 +12,8 @@ volumes:
    driver: local
  logstashdata01:
    driver: local
+ fleetserverdata:
+   driver: local
 networks:
  default:
    name: elastic
