@@ -265,4 +265,4 @@ services:
      - KIBANA_FLEET_SETUP=1
      - KIBANA_FLEET_USERNAME=elastic
      - KIBANA_FLEET_PASSWORD=${ELASTIC_PASSWORD}
-     - KIBANA_HOST=https://kibana:560 
+     - KIBANA_HOST=https://kibana:5601
