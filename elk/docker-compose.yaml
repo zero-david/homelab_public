@@ -145,6 +145,7 @@ services:
      - "traefik.http.routers.elastic.middlewares=secured@file"
      - "traefik.http.routers.elastic.tls=true"
      - "traefik.docker.network=proxy"
+     - "traefik.http.services.elastic.loadbalancer.server.scheme=https"
     networks:
      - proxy
      - default
