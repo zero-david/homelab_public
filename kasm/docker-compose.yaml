@@ -16,7 +16,7 @@ services:
 #    ports:
 #      - 3000:3000
 #      - 443:443
-    memory: 8g
+    mem_limit: 8g
     restart: unless-stopped
     deploy:
       resources:
