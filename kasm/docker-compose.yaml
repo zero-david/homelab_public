@@ -31,7 +31,7 @@ services:
       # Traefik
       - "traefik.http.routers.kasm.entrypoints=http,https"
       - "traefik.http.routers.kasm.rule=Host(`kasm.zerodavid.net`)"
-      - "traefik.http.routers.kasm.middlewares=secured@file"
+#      - "traefik.http.routers.kasm.middlewares=secured@file"
       - "traefik.http.routers.kasm.tls=true"
       - "traefik.http.services.kasm.loadbalancer.server.scheme=https"
 volumes:
