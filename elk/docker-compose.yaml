@@ -294,4 +294,4 @@ services:
       - KIBANA_FLEET_USERNAME=elastic
       - KIBANA_FLEET_PASSWORD=${ELASTIC_PASSWORD}
       - KIBANA_HOST=https://kibana:5601
-      - FLEET_AGENT_ID=fa0
+      - fleet.agent.id=fa0
