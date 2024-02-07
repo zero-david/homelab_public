@@ -41,7 +41,7 @@ services:
       # Traefik
       - "traefik.http.routers.nextcloud.entrypoints=http,https"
       - "traefik.http.routers.nextcloud.rule=Host(`nextcloud.zerodavid.net`)"
-      - "traefik.http.routers.nextcloud.middlewares=secured@file"
+      - "traefik.http.routers.nextcloud.middlewares=https-redirectscheme@file,default-headers@file"
       - "traefik.http.routers.nextcloud.tls=true"
       - "traefik.docker.network=proxy"
 networks:
