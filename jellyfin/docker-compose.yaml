@@ -31,7 +31,7 @@ services:
       # Traefik
       - "traefik.http.routers.jellyfin.entrypoints=http,https"
       - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.zerodavid.net`)"
-      - "traefik.http.routers.jellyfin.middlewares=secured@file"
+      - "traefik.http.routers.jellyfin.middlewares=https-redirectscheme@file,default-headers@file"
       - "traefik.http.routers.jellyfin.tls=true"
       - "traefik.docker.network=proxy"
     networks:
