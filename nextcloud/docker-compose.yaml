@@ -10,8 +10,8 @@ services:
     volumes:
       - db:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=yXaemFjoCWFC9$LYgn55NeBR2aLH*2
-      - MYSQL_PASSWORD=yXaemFjoCWFC9$LYgn55NeBR2aLH*2
+      - MYSQL_ROOT_PASSWORD=[redacted]
+      - MYSQL_PASSWORD=[redacted]
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
     networks:
@@ -28,7 +28,7 @@ services:
       - app:/var/www/html
       - /mnt/nextcloud-lv:/var/www/html/data
     environment:
-      - MYSQL_PASSWORD=yXaemFjoCWFC9$LYgn55NeBR2aLH*2
+      - MYSQL_PASSWORD=[redacted]
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=db
