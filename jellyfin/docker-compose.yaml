@@ -45,8 +45,8 @@ services:
     volumes:
       - xmltvdata:/data
     environment:
-      - USERNAME=david_jm_fitzgerald@outlook.com
-      - PASSWORD=rZie7MZdVf4HUn
+      - USERNAME=[redacted]
+      - PASSWORD=[redacted]
       - OPT_ARGS=-I -D
       - XMLTV_FILENAME=channels.xml
     networks:
