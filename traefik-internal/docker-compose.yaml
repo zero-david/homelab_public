@@ -13,7 +13,7 @@ services:
       - 80:80
       - 443:443
     environment:
-      - CF_DNS_API_TOKEN=7bMgT3-p6HyEIMQYkiSIMPlj0VUUvvGCj10QAXM1
+      - CF_DNS_API_TOKEN=[redacted]
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -33,7 +33,7 @@ services:
       - "traefik.http.routers.traefik-dashboard.tls.domains[0].sans=*.local.zerodavid.net"
       - "traefik.http.routers.traefik-dashboard.service=api@internal"   
       # Basic Authentication Middleware Configuration
-      - "traefik.http.middlewares.traefik-auth.basicauth.users=david:$$apr1$$ET6VRY1o$$35O8mz9wDGwPQNfH0UdMv0"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=[redacted]"
 networks:
   proxy:
     external: true
